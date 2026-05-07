@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+      - run: pip install pyinstaller customtkinter
+      - run: pyinstaller --onefile ui.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: todo-app-windows
+          path: dist/ui.exe
