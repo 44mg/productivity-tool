@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install pyinstaller customtkinter
-      - run: pyinstaller --onefile productivity-tool.py
+      - run: pyinstaller --onefile --noconsole productivity-tool.py
       - uses: actions/upload-artifact@v4
         with:
           name: todo-app-windows
