@@ -9,13 +9,13 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.13'
       - run: pip install pyinstaller customtkinter
       - run: pyinstaller --onefile ui.py
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: todo-app-windows
           path: dist/ui.exe
