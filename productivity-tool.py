@@ -25,6 +25,17 @@ entry.pack(fill = "x", padx = 10, pady = 10)
 timer_label = ctk.CTkLabel(tabview.tab("Pomodoro Timer"), text = "25:00", font = ("Arial", 48))
 timer_label.pack(fill = "both", expand = True, padx= 10, pady = 10)
 
+mode_switch = ctk.CTkSwitch(root)
+
+def togglemode():
+    if mode_switch.get() == 1:
+        ctk.set_appearance_mode("dark")
+    else:
+        ctk.set_appearance_mode("light")
+
+mode_switch = ctk.CTkSwitch(root, text = "Light / Dark", command = togglemode)
+mode_switch.pack(fill = "both", padx= 10, pady = 10)
+
 # todo list functions
 
 def add_task():
@@ -103,7 +114,7 @@ remtask.pack(fill = "x", padx = 10, pady = 10)
 
 # pomodoro timer
 
-start_btn = ctk.CTkButton(tabview.tab("Pomodoro Timer"), text = "Start", command = start_timer )
+start_btn = ctk.CTkButton(tabview.tab("Pomodoro Timer"), text = "Start", command = start_timer)
 start_btn.pack(fill = "x", padx = 10, pady = 10)
 
 pause_btn = ctk.CTkButton(tabview.tab("Pomodoro Timer"), text = "Pause", command = toggletimer)
