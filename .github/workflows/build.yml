@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.13'
-      - run: pip install pyinstaller customtkinter
+      - run: pip install pyinstaller customtkinter pystray pillow
       - run: pyinstaller --onefile --noconsole productivity-tool.py
       - uses: actions/upload-artifact@v4
         with:

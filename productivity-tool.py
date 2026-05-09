@@ -2,6 +2,10 @@ import tkinter as tk
 import customtkinter as ctk
 import json
 import os
+import pystray
+from PIL import Image, ImageDraw
+import threading
+import platform
 BG = "#0A84FF"
 
 running = False
@@ -25,7 +29,7 @@ entry.pack(fill = "x", padx = 10, pady = 10)
 timer_label = ctk.CTkLabel(tabview.tab("Pomodoro Timer"), text = "25:00", font = ("Arial", 48))
 timer_label.pack(fill = "both", expand = True, padx= 10, pady = 10)
 
-mode_switch = ctk.CTkSwitch(root)
+# ui functions and widgets
 
 def togglemode():
     if mode_switch.get() == 1:
@@ -35,6 +39,28 @@ def togglemode():
 
 mode_switch = ctk.CTkSwitch(root, text = "Light / Dark", command = togglemode)
 mode_switch.pack(fill = "both", padx= 10, pady = 10)
+
+def create_icon():
+    img = Image.new("RGB", (64, 64), color = "#0A84FF")
+    draw = ImageDraw.Draw(img)
+    draw.ellipse((8, 8, 56, 56), fill = "white")
+    return img
+
+def show_window(icon, item):
+    icon.stop()
+    root.after(0, root.deiconify)
+
+def hide_window():
+    if platform.system() == "Darwin":
+        root.iconify()
+    else:
+        root.withdraw()
+        menu = pystray.Menu(pystray.MenuItem("Open", show_window))
+        icon = pystray.Icon("productivity", create_icon(), "Productivity App", menu)
+        threading.Thread(target = icon.run, daemon = True).start()
+if platform.system() != "Darwin":
+    tray_btn = ctk.CTkButton(root, text = "Minimize to tray", command = hide_window)
+    tray_btn.pack(fill = "x", padx = 10, pady =10)
 
 # todo list functions
 
